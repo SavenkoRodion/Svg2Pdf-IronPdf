@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
@@ -40,5 +39,19 @@ namespace svg2pdf_ironpdf.Classes
             return shortPaths;
         }
 
+        public string[] GetFileNames(string[] paths)
+        {
+            string[] fileNames = new string[paths.Length];
+            for (int pathIndex = 0; pathIndex < paths.Length; pathIndex++)
+            {
+                // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
+
+                //shortPaths[pathIndex] = paths[pathIndex].Replace(AppFolderPath, "");
+                int IndexOfNameBeginning = paths[pathIndex].LastIndexOf('\\')+1;
+                fileNames[pathIndex] = paths[pathIndex].Substring(IndexOfNameBeginning);
+
+            }
+            return fileNames;
+        }
     }
 }

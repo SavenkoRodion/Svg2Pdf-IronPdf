@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
@@ -21,18 +20,20 @@ namespace svg2pdf_ironpdf
         public void GetZamowieniaSvgPath(string whichDir) {
             Console.WriteLine("GetZamowieniaSvgPath");
             string[] zamowieniaPaths = GetFolderDirs(whichDir); //array with only zamowienia paths
-            int[] ileProduktow = new int[zamowieniaPaths.Length]; //array with number of produkts of each zamowienie
-            string [] shortPaths = ReduceAppFolderPath(zamowieniaPaths); // removes from path AppFolderPath
+            int[] ileProduktow = new int[zamowieniaPaths.Length]; //create empty array with number of produkts of each zamowienie
+            string [] shortPaths = ReduceAppFolderPath(zamowieniaPaths); // create new array with zamowienia paths without AppFolderPath
             for (int i = 0; i < ileProduktow.Length; i++) {
-                ileProduktow[i] = GetFolderDirs(shortPaths[i]).Length;
+                ileProduktow[i] = GetFolderDirs(shortPaths[i]).Length; // fills array with number of produkts of each zamowienie
                 //Console.WriteLine(i);
                 /*                foreach (string lolek in lol) {
                                     Console.WriteLine(lolek);
                                 }*/
-                string[] produktFiles = GetFolderFiles(shortPaths[i] + "\\" + ileProduktow[i]);
-                string[] shortPathProduktFiles = ReduceAppFolderPath(produktFiles);
+                string[] produktFiles = GetFolderFiles(shortPaths[i] + "\\" + ileProduktow[i]); // array with produkt path
+                string[] shortPathProduktFiles = ReduceAppFolderPath(produktFiles); // create new array with produkt paths without AppFolderPath
+                string[] fileNames = GetFileNames(shortPathProduktFiles);
                 //Console.WriteLine(shortPaths[i] + "\\" + ileProduktow[i]);
-                foreach (string produktFile in shortPathProduktFiles) {
+                Console.WriteLine("Z1");
+                foreach (string produktFile in fileNames) {
                     Console.WriteLine(produktFile);
 
 /*                    string help = "" + produktFile[0];
