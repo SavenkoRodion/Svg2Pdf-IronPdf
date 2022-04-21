@@ -23,7 +23,15 @@ namespace svg2pdf_ironpdf
 
             //string[] fileNames = converter.GetFolderDirs("z_tmp");
 
-            converter.GetZamowieniaSvgPath("z_tmp");
+            string[][] svgFileNames = converter.GetZamowieniaSvgPath("z_tmp"); // ПИТАННЯ: Чи рішення зберігання обєктів в аррреї добре? Чи не краще вжити класи?
+
+            foreach (string[] outerarr in svgFileNames) {
+                Console.WriteLine("outer arr");
+                foreach (string element in outerarr)
+                {
+                   // Console.WriteLine(element);
+                }
+            }
             //string svgName = converter.GetSvgName(zipNames);
             
         }
