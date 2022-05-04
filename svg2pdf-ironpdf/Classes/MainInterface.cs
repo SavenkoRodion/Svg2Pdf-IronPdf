@@ -29,7 +29,7 @@ namespace svg2pdf_ironpdf
                 Console.WriteLine("outer arr");
                 foreach (string element in outerarr)
                 {
-                   // Console.WriteLine(element);
+                    Console.WriteLine(element);
                 }
             }
             //string svgName = converter.GetSvgName(zipNames);
