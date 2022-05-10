@@ -1,30 +1,38 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 using System.IO.Compression;
 
-namespace svg2pdf_ironpdf.Classes
+namespace svg2pdf_ironpdf
 {
-    public class BaseConverter // ПИТАННЯ: UTIL?
+    public class BaseConversion // ПИТАННЯ: UTIL?
     {
         public string AppFolderPath { get; } = Directory.GetCurrentDirectory() + "\\..\\..\\";
-        
+
         // ПИТАННЯ: Розділення класи на робочі методи
         public string[] GetFolderFiles(string whichDir)
         {
-            string[] folderFiles = Directory.GetFiles(AppFolderPath + whichDir);
+            string[] folderFiles = Directory.GetFiles(whichDir);
             return folderFiles;
         }
 
         // ПИТАННЯ: Дублікат метод це нормально? Як це замінить?
         public string[] GetFolderDirs(string whichDir)
         {
-            string[] folderFiles = Directory.GetDirectories(AppFolderPath + whichDir);
+            string[] folderFiles = Directory.GetDirectories(whichDir);
             return folderFiles;
         }
-        
+
+        public void UnZip(string[] zips)
+        {
+            Console.WriteLine("last");
+            foreach (string zip in zips)
+            {
+                ZipFile.ExtractToDirectory(zip, AppFolderPath + "z_tmp\\");
+            }
+        }
 
         // ПИТАННЯ: Якщо метод впринципі той сам але різний ретурн чи шось, як змінить
         public string[] ReduceAppFolderPath(string[] paths)
@@ -47,7 +55,7 @@ namespace svg2pdf_ironpdf.Classes
                 // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
 
                 //shortPaths[pathIndex] = paths[pathIndex].Replace(AppFolderPath, "");
-                int IndexOfNameBeginning = paths[pathIndex].LastIndexOf('\\')+1;
+                int IndexOfNameBeginning = paths[pathIndex].LastIndexOf('\\') + 1;
                 fileNames[pathIndex] = paths[pathIndex].Substring(IndexOfNameBeginning);
 
             }

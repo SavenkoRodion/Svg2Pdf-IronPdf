@@ -1,15 +1,20 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace svg2pdf_ironpdf
 {
-    public static class MainInterface
+    public static class UserInterface
     {
-        public static void StandartConvert() {
+
+        public static void UserInteraction() {
+            Console.WriteLine("Interface...");
+            var converter = new StandartConversion();
+            converter.StartConversion();
+        }
+        /*public static void OldStandartConvert() {
 
             var converter = new StandartConverter();
 
@@ -34,6 +39,6 @@ namespace svg2pdf_ironpdf
             }
             //string svgName = converter.GetSvgName(zipNames);
             
-        }
+        }*/
     }
 }

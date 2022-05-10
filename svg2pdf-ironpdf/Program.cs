@@ -34,7 +34,7 @@ namespace svg2pdf_ironpdf
                         //автоматізація ретурну*/
 
             Console.WriteLine("start");
-            MainInterface.StandartConvert();
+            UserInterface.UserInteraction();
             // ПИТАННЯ: НАПОМИНАННЯ:
             Console.WriteLine("end");
         }
