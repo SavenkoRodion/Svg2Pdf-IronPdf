@@ -12,7 +12,7 @@ namespace svg2pdf_ironpdf
         static void Main(string[] args)
         {
 
-            /*            int count = 86;
+            /*            int count = 0;
                         //автоматізація цифри
                         string way = @"C:/Users/Saven/Desktop/zamowienie_nr_15661_2022-04-05131017/1/1.ve15661_strona_Strona_1_1z2_90x50_4+4_kreda_mat_350g_200_k.svg";
                         //автоматізація назви
@@ -35,7 +35,6 @@ namespace svg2pdf_ironpdf
 
             Console.WriteLine("start");
             UserInterface.UserInteraction();
-            // ПИТАННЯ: НАПОМИНАННЯ:
             Console.WriteLine("end");
         }
 

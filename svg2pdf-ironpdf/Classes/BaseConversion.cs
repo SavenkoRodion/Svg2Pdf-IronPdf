@@ -9,7 +9,7 @@ namespace svg2pdf_ironpdf
 {
     public class BaseConversion // ПИТАННЯ: UTIL?
     {
-        public string AppFolderPath { get; } = Directory.GetCurrentDirectory() + "\\..\\..\\";
+        public string AppFolderPath { get; } = Directory.GetCurrentDirectory() + "\\";
 
         // ПИТАННЯ: Розділення класи на робочі методи
         public string[] GetFolderFiles(string whichDir)
@@ -18,7 +18,6 @@ namespace svg2pdf_ironpdf
             return folderFiles;
         }
 
-        // ПИТАННЯ: Дублікат метод це нормально? Як це замінить?
         public string[] GetFolderDirs(string whichDir)
         {
             string[] folderFiles = Directory.GetDirectories(whichDir);
@@ -27,7 +26,6 @@ namespace svg2pdf_ironpdf
 
         public void UnZip(string[] zips)
         {
-            Console.WriteLine("last");
             foreach (string zip in zips)
             {
                 ZipFile.ExtractToDirectory(zip, AppFolderPath + "z_tmp\\");
@@ -35,31 +33,19 @@ namespace svg2pdf_ironpdf
         }
 
         // ПИТАННЯ: Якщо метод впринципі той сам але різний ретурн чи шось, як змінить
-        public string[] ReduceAppFolderPath(string[] paths)
+        public string ReduceAppFolderPath(string path)
         {
-            string[] shortPaths = new string[paths.Length];
-            for (int pathIndex = 0; pathIndex < paths.Length; pathIndex++)
-            {
-                // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
-                shortPaths[pathIndex] = paths[pathIndex].Replace(AppFolderPath, "");
-
-            }
-            return shortPaths;
+            path = path.Replace(AppFolderPath, "");
+            return path;
         }
-
-        public string[] GetFileNames(string[] paths)
+        public string GetFileName(string path)
         {
-            string[] fileNames = new string[paths.Length];
-            for (int pathIndex = 0; pathIndex < paths.Length; pathIndex++)
-            {
-                // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
+            // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
 
-                //shortPaths[pathIndex] = paths[pathIndex].Replace(AppFolderPath, "");
-                int IndexOfNameBeginning = paths[pathIndex].LastIndexOf('\\') + 1;
-                fileNames[pathIndex] = paths[pathIndex].Substring(IndexOfNameBeginning);
-
-            }
-            return fileNames;
+            string fileName;
+            int IndexOfNameBeginning = path.LastIndexOf('\\') + 1;
+            fileName = path.Substring(IndexOfNameBeginning);
+            return fileName;
         }
     }
 }

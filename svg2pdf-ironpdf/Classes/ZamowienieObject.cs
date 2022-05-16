@@ -26,23 +26,31 @@ namespace svg2pdf_ironpdf
             PrepareProductArray();
         }
 
-        public void PrepareProductArray() {
+        public void PrepareProductArray() { //do uporzadkowania
             
             for (int i=0;i<ProductArray.Length;i++) {
-                string[] svgNames = new string[0];
+                int count = 0;
                 string[] fileNames = GetFolderFiles(ProductPaths[i]);
                 foreach (string fileName in fileNames)
                 {
-                    bool isSvg = int.TryParse(fileName[0] + "", out int uselessVar); // only needed svg starts with number, so this is my way to check is first char a number
-                    Console.WriteLine(fileName[0]);
+                    bool isSvg = int.TryParse(GetFileName(fileName + "")[0] + "", out int uselessVar); // only needed svg starts with number, so this is my way to check is first char a number
                     if (isSvg)
                     {
-                        Array.Resize<string>(ref svgNames, svgNames.Length+1);
-                        svgNames[svgNames.Length-1] = fileName;
-                        Console.WriteLine(fileName);
+                        count++;
                     }
                 }
-                Console.WriteLine(svgNames);
+                ProductArray[i] = new SvgObject[count];
+                for (int j = 0; j<count;j++) {
+                    ProductArray[i][j] = new SvgObject(fileNames[j]);
+                }
+            }
+            
+            for (int i = 0; i<ProductArray.Length;i++) {
+                for (int j = 0; j < ProductArray[i].Length; j++)
+                {
+                    Console.WriteLine("Conversion...");
+                    ProductArray[i][j].PrepareConversion();
+                }
             }
         }
 
