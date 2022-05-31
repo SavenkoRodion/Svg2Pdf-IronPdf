@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using IronPdf;
 
 namespace svg2pdf_ironpdf
 {
@@ -27,8 +29,8 @@ namespace svg2pdf_ironpdf
         }
 
         public void PrepareProductArray() { //do uporzadkowania
-            
-            for (int i=0;i<ProductArray.Length;i++) {
+
+            for (int i = 0; i < ProductArray.Length; i++) {
                 int count = 0;
                 string[] fileNames = GetFolderFiles(ProductPaths[i]);
                 foreach (string fileName in fileNames)
@@ -40,17 +42,27 @@ namespace svg2pdf_ironpdf
                     }
                 }
                 ProductArray[i] = new SvgObject[count];
-                for (int j = 0; j<count;j++) {
+                for (int j = 0; j < count; j++) {
                     ProductArray[i][j] = new SvgObject(fileNames[j]);
                 }
             }
-            
+            // change dir creation algorithm
+            Directory.CreateDirectory("z_out\\" + GetFileName(ZamowieniePath));
             for (int i = 0; i<ProductArray.Length;i++) {
+                Directory.CreateDirectory("z_out\\" + GetFileName(ZamowieniePath)+"\\"+(i+1));
+                PdfDocument[] pdfArray = new PdfDocument[ProductArray[i].Length];
                 for (int j = 0; j < ProductArray[i].Length; j++)
                 {
                     Console.WriteLine("Conversion...");
-                    ProductArray[i][j].PrepareConversion();
+                    pdfArray[j] = ProductArray[i][j].ConvertToPdf();
                 }
+                // fix this mess
+                PdfDocument merged = pdfArray[0];
+                for (int j = 1; j < ProductArray[i].Length; j++)
+                {
+                    merged = PdfDocument.Merge(pdfArray[0], pdfArray[j]);
+                }
+                merged.SaveAs(AppFolderPath + "\\z_out\\" + GetFileName(ZamowieniePath) + "\\" + (i+1) + "\\" + "output.pdf");
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using IronPdf;
 
 namespace svg2pdf_ironpdf
 {
@@ -32,8 +33,9 @@ namespace svg2pdf_ironpdf
 
                         Renderer.RenderHtmlAsPdf("<body style='margin:0;padding:0;'><img style='width: 340.2; height: 189' src='" + way + "'/></div>").SaveAs("C:\\Users\\Saven\\Desktop\\svg" + count + ".pdf");
                         //автоматізація ретурну*/
-
+            bool is_licensed = IronPdf.License.IsLicensed;
             Console.WriteLine("start");
+            Console.WriteLine(is_licensed);
             UserInterface.UserInteraction();
             Console.WriteLine("end");
         }
