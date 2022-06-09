@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO.Compression;
+using IronPdf;
 
 namespace svg2pdf_ironpdf
 {
     public class BaseConversion // ПИТАННЯ: UTIL?
     {
-        public string AppFolderPath { get; } = Directory.GetCurrentDirectory() + "\\";
+        public string AppFolderPath { get; } = Directory.GetCurrentDirectory() + @"\";
 
         // ПИТАННЯ: Розділення класи на робочі методи
         public string[] GetFolderFiles(string whichDir)
@@ -28,7 +29,7 @@ namespace svg2pdf_ironpdf
         {
             foreach (string zip in zips)
             {
-                ZipFile.ExtractToDirectory(zip, AppFolderPath + "z_tmp\\");
+                ZipFile.ExtractToDirectory(zip, AppFolderPath + @"z_tmp\");
             }
         }
 
@@ -43,9 +44,16 @@ namespace svg2pdf_ironpdf
             // НАПОМИНАННЯ: НЕЯКІСНИЙ КОД, ЗАМІНИТИ НА ООП
 
             string fileName;
-            int IndexOfNameBeginning = path.LastIndexOf('\\') + 1;
+            int IndexOfNameBeginning = path.LastIndexOf(@"\") + 1;
             fileName = path.Substring(IndexOfNameBeginning);
             return fileName;
+        }
+        public PdfDocument RemoveBlankPages(PdfDocument pdf) {
+            Console.WriteLine(pdf.PageCount);
+            while (pdf.PageCount != 1) {
+                pdf.RemovePage(1);
+            }
+            return pdf;
         }
     }
 }

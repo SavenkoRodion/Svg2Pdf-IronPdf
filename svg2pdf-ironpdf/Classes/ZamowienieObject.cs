@@ -47,14 +47,20 @@ namespace svg2pdf_ironpdf
                 }
             }
             // change dir creation algorithm
-            Directory.CreateDirectory("z_out\\" + GetFileName(ZamowieniePath));
-            for (int i = 0; i<ProductArray.Length;i++) {
-                Directory.CreateDirectory("z_out\\" + GetFileName(ZamowieniePath)+"\\"+(i+1));
+            SavePdfsFromZamowienie();
+        }
+        public void SavePdfsFromZamowienie()
+        {
+            Directory.CreateDirectory(@"z_out\" + GetFileName(ZamowieniePath));
+            for (int i = 0; i < ProductArray.Length; i++)
+            {
+                Directory.CreateDirectory(@"z_out\" + GetFileName(ZamowieniePath) + @"\" + (i + 1));
                 PdfDocument[] pdfArray = new PdfDocument[ProductArray[i].Length];
                 for (int j = 0; j < ProductArray[i].Length; j++)
                 {
                     Console.WriteLine("Conversion...");
                     pdfArray[j] = ProductArray[i][j].ConvertToPdf();
+                    //pdfArray[j] = RemoveBlankPages(pdfArray[j]);
                 }
                 // fix this mess
                 PdfDocument merged = pdfArray[0];
@@ -62,9 +68,8 @@ namespace svg2pdf_ironpdf
                 {
                     merged = PdfDocument.Merge(pdfArray[0], pdfArray[j]);
                 }
-                merged.SaveAs(AppFolderPath + "\\z_out\\" + GetFileName(ZamowieniePath) + "\\" + (i+1) + "\\" + "output.pdf");
+                merged.SaveAs(AppFolderPath + @"\z_out\" + GetFileName(ZamowieniePath) + @"\" + (i + 1) + @"\" + "output.pdf");
             }
         }
-
     }
 }

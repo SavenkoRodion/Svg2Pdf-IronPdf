@@ -16,8 +16,8 @@ namespace svg2pdf_ironpdf
         }
 
         public void PrepareZamowieniaFolders() {
-            Directory.Delete(AppFolderPath + "\\z_tmp", true);
-            Directory.CreateDirectory(AppFolderPath + "\\z_tmp");
+            Directory.Delete(AppFolderPath + "z_tmp", true);
+            Directory.CreateDirectory(AppFolderPath + "z_tmp");
 
             string[] zipNames = GetFolderFiles(AppFolderPath+"z_zip");
             UnZip(zipNames);
@@ -25,7 +25,7 @@ namespace svg2pdf_ironpdf
         }
 
         public void PrepareZamowieniaObjects() {
-            string[] zamowieniaPaths = GetFolderDirs(AppFolderPath+"\\z_tmp");
+            string[] zamowieniaPaths = GetFolderDirs(AppFolderPath+"z_tmp");
             int zamowieniaQty = zamowieniaPaths.Length;
             ZamowienieObject[] zamowieniaObjects = new ZamowienieObject[zamowieniaQty];
             for (int zamowienieIndex = 0; zamowienieIndex < zamowieniaQty; zamowienieIndex++) {
